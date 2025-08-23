@@ -1,0 +1,67 @@
+1. generisemo celo stablo igre, rekurzivno ... 
+
+
+getOutcome(state, ...)
+   - iteriramo kroz svu decu
+   - 
+
+vracamo: koji outcome ovde postoji, koji korak je preduzet 
+
+
+cilj je da formiramo niz koraka koje ce igraci igrati, i da iteriramo taj niz i krecemo igrace . 
+
+
+ide se do dubine N , i od te dubine vracaju -1/0/1 u zavisnosti od odnosa broja polja na konacnim potezima
+
+
+====
+rounds - 1 runda podrazumeva da svi igraci odigraju jedan svoj potez. 
+max_depth - max dubina razvijanja stabla 
+
+====
+
+getMoves(rounds, max_depth, state){
+   if rounds*2 < max_depth:
+    - generisi stablo do dubine rounds*2
+    else:
+    - generisi stablo do dubine max_depth
+}
+
+dfs(isMax, state){
+   value = if isMax inf else -inf 
+   stepToTake = null 
+   for move in moves:
+      newState = state.applyMove(move)
+      result = evaluateGrid(newState)
+      if isMax and result > value:
+         # is Max player
+         stepToTake = move 
+         value = result
+         # optimisation: if value == MAX_WIN_COND: break
+      else if isMin and value < result:
+        # is Min player
+         stepToTake = move 
+         value = result
+         # optimisation: if value == MIN_WIN_COND: break
+   return stepToTake
+
+... should we do backtracing? because we want to re-trace our steps...
+
+
+}
+====
+# helper functions:
+
+evaluateGrid(state):
+   return [count_1, count_2]
+
+
+
+
+STA KADA JE ROUNDS VECI OD DUBINE STABLA? 
+
+
+===
+# konacna odluka
+- backtracking algoritam, sa ciljem da sastavimo niz koraka!
+   - ali ovo je mnogo skupo u smislu memorije :( , ...
