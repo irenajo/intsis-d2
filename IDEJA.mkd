@@ -33,6 +33,9 @@ python .\main.py MinimaxAgent,MinimaxAgent
 
 python .\main.py MinimaxAgent,MinimaxAgent example_map.txt 10 0 5
 
+python .\main.py MinimaxABAgent,MinimaxABAgent example_map.txt 10 0 5
+
+
 
 
 
