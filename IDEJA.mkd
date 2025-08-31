@@ -37,7 +37,7 @@ python .\main.py MinimaxABAgent,MinimaxABAgent example_map.txt 10 0 5
 
 
 
-
+python .\main.py MaxNAgent,MaxNAgent,MaxNAgent,MaxNAgent four_player_map.txt 10 0 5
 
 
 
