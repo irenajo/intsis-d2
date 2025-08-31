@@ -31,6 +31,8 @@ ako smo u poslednjem koraku, vracamo izbrojen broj obojenih nasih polja kada bis
 ### minimax
 python .\main.py MinimaxAgent,MinimaxAgent
 
+python .\main.py MinimaxAgent,MinimaxAgent example_map.txt 10 0 5
+
 
 
 

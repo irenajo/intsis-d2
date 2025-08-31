@@ -36,10 +36,13 @@ class GreedyAgent(Agent):
 # todo implement here 
 class MinimaxAgent(Agent):
 
-    def minimax(self, player_max, curr_depth, state, max_depth):
-        if curr_depth == max_depth:
+    def minimax(self, player_max, curr_depth, state, max_depth, root_player):
+        if state.is_goal_state() or curr_depth == max_depth:
             # reached end - get score
-            return state.get_score(state.get_on_move_chr())
+            if root_player == 'A':
+                return (state.get_score('A') - state.get_score('B'))
+            else:
+                return (state.get_score('B') - state.get_score('A'))
 
         # have not reached end
         possible_actions = state.get_legal_actions()
@@ -48,13 +51,13 @@ class MinimaxAgent(Agent):
             score = float('-inf')
             for my_action in possible_actions:
                 possible_state = state.generate_successor_state(my_action)
-                score = max(score, MinimaxAgent.minimax(self,False, curr_depth + 1, possible_state, max_depth))
+                score = max(score, MinimaxAgent.minimax(self,False, curr_depth + 1, possible_state, max_depth, root_player))
             return score
         else:
             score = float('inf')
         for my_action in possible_actions:
             possible_state = state.generate_successor_state(my_action)
-            score = min(score, MinimaxAgent.minimax(self,True, curr_depth + 1, possible_state, max_depth))
+            score = min(score, MinimaxAgent.minimax(self,True, curr_depth + 1, possible_state, max_depth, root_player))
         return score
 
     def get_chosen_action(self, state, max_depth):
@@ -64,14 +67,15 @@ class MinimaxAgent(Agent):
         if len(possible_actions) == 0:
             return None
 
-        score = float('-inf')
-        next_action = possible_actions[0] 
+        best_score = float('-inf')
+        next_action = possible_actions[0]
+        root_player = state.get_on_move_chr()
         # starting as a MAX player, this is first iteration because we want to return the action associated with it
         for action in possible_actions:
             possible_state = state.generate_successor_state(action)
-            possible_score = MinimaxAgent.minimax(self, False, 0, possible_state, max_depth)
-            if possible_score > score:
-                score = possible_score
+            curr_score = MinimaxAgent.minimax(self, False, 1, possible_state, max_depth, root_player)
+            if curr_score > best_score:
+                best_score = curr_score
                 next_action = action
 
         return next_action
